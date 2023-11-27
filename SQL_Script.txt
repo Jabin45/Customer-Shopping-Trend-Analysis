@@ -1,0 +1,192 @@
+Create database Shopping;
+
+use shopping;
+
+
+select * from shopping_trends;
+
+-- 10 Which gender has the highest number of purchases?
+SELECT
+gender,
+COUNT(*) AS gender_total
+FROM 
+shopping_trends
+GROUP BY gender
+ORDER BY gender desc;
+
+-- 9 category of product purchased
+
+SELECT 
+* 
+FROM shopping_trends;
+
+SELECT 
+distinct gender,
+    Category, COUNT(*) AS Total_Category
+FROM
+    Shopping_trends
+GROUP BY gender,category
+ORDER BY  category desc;
+
+-- 8 What are the most commonly purchased items in each category?
+
+SELECT 
+    Category,
+    `Item Purchased`,
+    COUNT(`Item Purchased`) AS total_purchase
+FROM shopping_trends
+GROUP BY Category, `Item Purchased`
+ORDER BY Category, total_purchase DESC;
+
+
+-- 7Are there any specific seasons where customer spending is significantly higher?
+
+SELECT
+    DISTINCT Season,
+    Category,
+    COUNT(*) AS total_purchase
+FROM 
+    shopping_trends
+GROUP BY 
+    Season, Category
+ORDER BY 
+	total_purchase desc;
+    
+    
+-- 6What is the average rating given by customers for each product category?
+
+SELECT
+    Category,
+    AVG(`Review Rating`) AS Average_Rating,
+    COUNT(*) AS Total_Rating
+FROM
+    shopping_trends
+GROUP BY
+    Category
+ORDER BY
+    Total_rating DESC;shopping_trends
+    
+-- 5 Which payment method is the most popular among customers?
+
+SELECT
+    `Payment Method`,
+    COUNT(*) AS Total_Payments
+FROM 
+    shopping_trends
+GROUP BY 
+    `Payment Method`
+ORDER BY 
+    Total_Payments DESC;
+    
+-- 4Do customers who use promo codes tend to spend more than those who don't?
+
+SELECT
+`Promo Code Used`,
+count(*) as Total_Promo_Code
+FROM 
+shopping_trends
+GROUP BY
+ `Promo Code Used`
+ORDER BY 
+Total_Promo_Code DESC;
+
+SELECT
+    `Promo Code Used`,
+    COUNT(*) AS Total_Customers,
+    SUM(`Purchase Amount`) AS Total_Spending
+FROM 
+    shopping_trends
+GROUP BY
+    `Promo Code Used`
+ORDER BY 
+    Total_Customers DESC;
+
+-- 3How does the frequency of purchases vary across different age groups?
+    
+SELECT 
+CASE
+	WHEN Age BETWEEN 18 AND 30 THEN '18-30'
+	WHEN Age BETWEEN 31 AND 40 THEN '31-40'
+	WHEN Age BETWEEN 41 AND 50 THEN '41-50'
+	ELSE '51+'
+END AS Age_group, 
+COUNT(*) as purchase_count
+FROM shopping_trends
+GROUP BY age_group
+ORDER BY purchase_count desc;
+
+    
+-- 2 Which shipping type is preferred by customers for different product categories?
+SELECT
+DISTINCT category,
+`Shipping Type`,
+COUNT(*) AS total_shipping
+FROM shopping_trends
+GROUP BY category, `Shipping Type`
+ORDER BY total_shipping DESC;
+
+
+-- 1 How does the presence of a discount affect the purchase decision of customers?
+SELECT
+    `Discount Applied`,
+    COUNT(*) AS Total_Customers,
+    AVG (`Purchase Amount`) AS Avg_Purchase_Amount
+FROM 
+    shopping_trends
+GROUP BY
+    `Discount Applied`
+ORDER BY 
+    Total_Customers;
+    
+    
+-- 11. Are there any specific colors that are more popular among customers?
+
+SELECT
+    Color,
+    COUNT(*) AS Total_Color
+FROM
+    shopping_trends
+GROUP BY
+    Color
+ORDER BY
+    Total_Color DESC;
+
+
+-- 12 What is the average number of previous purchases made by customers?
+SELECT
+AVG(`Previous Purchases`) AS Avg_Purchase
+FROM 
+shopping_trends;
+
+
+-- Are there any noticeable differences in purchase behavior between different locations?
+
+SELECT
+    Location,
+    COUNT(*) AS Total_Customers,
+    AVG(`Purchase Amount`) AS Avg_Purchase,
+    SUM(`Purchase Amount`) AS Total_Purchase
+FROM 
+    shopping_trends
+GROUP BY
+    Location
+ORDER BY 
+    Avg_Purchase DESC;
+    
+-- Is there a relationship between customer age and the category of products they purchase?   
+    
+SELECT
+CASE
+	WHEN Age BETWEEN 18 AND 30 THEN '18-30'
+	WHEN Age BETWEEN 31 AND 40 THEN '31-40'
+	WHEN Age BETWEEN 41 AND 50 THEN '41-50'
+	ELSE '51+'
+END AS Age_group,
+Category,
+COUNT(*) AS Purchase_Count
+FROM 
+shopping_trends
+GROUP BY
+Category
+ORDER BY 
+Age_group, Purchase_Count DESC;
